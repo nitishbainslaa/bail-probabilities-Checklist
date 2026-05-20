@@ -7,7 +7,7 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <style>
 
 *{
@@ -809,14 +809,35 @@ GET FULL REPORT
 
 <script>
 
+/* =====================================
+   EMAILJS INITIALIZE
+===================================== */
+
+(function(){
+
+emailjs.init("https://script.google.com/macros/s/AKfycbxucWUr-HobsNVA7A5-pEiE19BdxLOoEJPszH-HMFiBWcdOJg-tM7bCn5OhTyc1Dyj1/exec");
+
+})();
+
+/* =====================================
+   GLOBAL VARIABLES
+===================================== */
+
 let arrestValue = 20;
+
+/* =====================================
+   SELECT ARREST STATUS
+===================================== */
 
 function selectArrest(element,value){
 
-let boxes = document.querySelectorAll('.toggle-box');
+let boxes =
+document.querySelectorAll('.toggle-box');
 
 boxes.forEach(box=>{
+
 box.classList.remove('active');
+
 });
 
 element.classList.add('active');
@@ -825,106 +846,312 @@ arrestValue = value;
 
 }
 
+/* =====================================
+   SCORE ANIMATION
+===================================== */
+
 function animateScore(end){
 
 let start = 0;
+
 let duration = 1500;
-let increment = end / (duration / 16);
+
+let increment =
+end / (duration / 16);
 
 let counter = setInterval(()=>{
 
 start += increment;
 
 if(start >= end){
+
 start = end;
+
 clearInterval(counter);
+
 }
 
-document.getElementById('scoreNumber').innerHTML = Math.floor(start) + '%';
+document.getElementById('scoreNumber').innerHTML =
+Math.floor(start) + '%';
 
 },16);
 
 }
 
+/* =====================================
+   MAIN CALCULATOR FUNCTION
+===================================== */
+
 function calculateBail(){
+
+/* =====================================
+   USER DETAILS
+===================================== */
+
+let fullName =
+document.getElementById('name').value;
+
+let phone =
+document.getElementById('phone').value;
+
+let caseType =
+document.getElementById('caseType');
+
+let record =
+document.getElementById('record');
+
+let firStatus =
+document.getElementById('firStatus');
+
+let chargesheet =
+document.getElementById('chargesheet');
+
+let investigation =
+document.getElementById('investigation');
+
+let recovery =
+document.getElementById('recovery');
+
+let settlement =
+document.getElementById('settlement');
+
+let bailRejected =
+document.getElementById('bailRejected');
+
+let summary =
+document.querySelector('textarea').value;
+
+/* =====================================
+   VALIDATION
+===================================== */
+
+if(fullName == '' || phone == ''){
+
+alert('Please enter name and phone number');
+
+return;
+
+}
+
+/* =====================================
+   SCORE CALCULATION
+===================================== */
 
 let score = 0;
 
-score += parseInt(document.getElementById('caseType').value);
-score += parseInt(document.getElementById('record').value);
-score += parseInt(document.getElementById('firStatus').value);
-score += parseInt(document.getElementById('chargesheet').value);
-score += parseInt(document.getElementById('investigation').value);
-score += parseInt(document.getElementById('recovery').value);
-score += parseInt(document.getElementById('settlement').value);
-score += parseInt(document.getElementById('bailRejected').value);
+score += parseInt(caseType.value);
+score += parseInt(record.value);
+score += parseInt(firStatus.value);
+score += parseInt(chargesheet.value);
+score += parseInt(investigation.value);
+score += parseInt(recovery.value);
+score += parseInt(settlement.value);
+score += parseInt(bailRejected.value);
 score += arrestValue;
 
 score = Math.floor(score / 2);
 
 if(score > 100){
+
 score = 100;
+
 }
 
-let title='';
-let text='';
+/* =====================================
+   RESULT TEXT
+===================================== */
+
+let title = '';
+let text = '';
 
 if(score >= 75){
 
-title='High Bail Probability';
-text='Your matter currently shows strong legal grounds for bail approval.';
+title =
+'High Bail Probability';
+
+text =
+'Your matter currently shows strong legal grounds for bail approval.';
 
 }
 else if(score >= 50){
 
-title='Moderate Bail Probability';
-text='Your bail chances are moderate. Proper legal representation is recommended.';
+title =
+'Moderate Bail Probability';
+
+text =
+'Your bail chances are moderate. Proper legal representation is recommended.';
 
 }
 else{
 
-title='Low Bail Probability';
-text='Immediate legal consultation is advised due to higher legal risk.';
+title =
+'Low Bail Probability';
+
+text =
+'Immediate legal consultation is advised due to higher legal risk.';
 
 }
 
-document.getElementById('resultBox').style.display='block';
+/* =====================================
+   SHOW RESULT
+===================================== */
 
-document.getElementById('resultTitle').innerHTML = title;
-document.getElementById('resultText').innerHTML = text;
+document.getElementById('resultBox').style.display =
+'block';
+
+document.getElementById('resultTitle').innerHTML =
+title;
+
+document.getElementById('resultText').innerHTML =
+text;
 
 animateScore(score);
 
-document.getElementById('strengthBar').style.width = score + '%';
-document.getElementById('riskBar').style.width = (100-score+10) + '%';
-document.getElementById('advocateBar').style.width = (score+5) + '%';
+document.getElementById('strengthBar').style.width =
+score + '%';
+
+document.getElementById('riskBar').style.width =
+(100 - score + 10) + '%';
+
+document.getElementById('advocateBar').style.width =
+(score + 5) + '%';
+
+/* =====================================
+   SEND EMAIL TO YOUR MAIL
+===================================== */
+
+emailjs.send(
+
+'YOUR_SERVICE_ID',
+
+'YOUR_TEMPLATE_ID',
+
+{
+
+name: fullName,
+
+phone: phone,
+
+case_type:
+caseType.options[
+caseType.selectedIndex
+].text,
+
+criminal_record:
+record.options[
+record.selectedIndex
+].text,
+
+fir_status:
+firStatus.options[
+firStatus.selectedIndex
+].text,
+
+chargesheet:
+chargesheet.options[
+chargesheet.selectedIndex
+].text,
+
+investigation:
+investigation.options[
+investigation.selectedIndex
+].text,
+
+recovery:
+recovery.options[
+recovery.selectedIndex
+].text,
+
+settlement:
+settlement.options[
+settlement.selectedIndex
+].text,
+
+bail_rejected:
+bailRejected.options[
+bailRejected.selectedIndex
+].text,
+
+arrest_status:
+document.querySelector('.toggle-box.active').innerText,
+
+summary: summary,
+
+score: score + '%',
+
+result: title
+
+}
+
+)
+
+.then(function(response){
+
+console.log('SUCCESS!', response.status);
+
+})
+
+.catch(function(error){
+
+console.log('FAILED...', error);
+
+});
+
+/* =====================================
+   AUTO SCROLL
+===================================== */
 
 window.scrollTo({
 
-top:document.getElementById('resultBox').offsetTop-50,
+top:
+document.getElementById('resultBox').offsetTop - 50,
+
 behavior:'smooth'
 
 });
 
 }
 
+/* =====================================
+   WHATSAPP FUNCTION
+===================================== */
+
 function sendWhatsApp(){
 
-let name = document.getElementById('leadName').value;
-let phone = document.getElementById('leadPhone').value;
+let name =
+document.getElementById('leadName').value;
 
-if(name=='' || phone==''){
+let phone =
+document.getElementById('leadPhone').value;
+
+if(name == '' || phone == ''){
+
 alert('Please fill all details');
+
 return;
+
 }
 
-let score = document.getElementById('scoreNumber').innerText;
+let score =
+document.getElementById('scoreNumber').innerText;
 
-let message = `New Bail Lead\n\nName: ${name}\nPhone: ${phone}\nScore: ${score}`;
+let message =
+`New Bail Lead
 
-let number = '919876543210';
+Name: ${name}
+Phone: ${phone}
+Score: ${score}`;
 
-window.open(`https://wa.me/${number}?text=${encodeURIComponent(message)}`,'_blank');
+let number =
+'919876543210';
+
+window.open(
+
+`https://wa.me/${number}?text=${encodeURIComponent(message)}`,
+
+'_blank'
+
+);
 
 }
 
