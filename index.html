@@ -390,74 +390,494 @@ transform:translateY(-4px);
 /* =====================================
    RESULT MODAL POPUP
 ===================================== */
-
 .result-modal{
 position:fixed;
 inset:0;
-background:rgba(0,0,0,0.7);
-backdrop-filter:blur(8px);
+background:rgba(0,0,0,0.82);
+backdrop-filter:blur(12px);
 display:none;
 align-items:center;
 justify-content:center;
-padding:20px;
-z-index:99999;
+padding:25px;
+z-index:999999;
 animation:fadeIn 0.4s ease;
-}
-
-@keyframes fadeIn{
-
-from{
-opacity:0;
-}
-
-to{
-opacity:1;
-}
-
 }
 
 .result-popup{
 width:100%;
-max-width:1100px;
-max-height:90vh;
+max-width:1180px;
+max-height:92vh;
 overflow-y:auto;
-background:#09111f;
-border-radius:35px;
-padding:35px;
+background:linear-gradient(135deg,#09111f,#101b31);
+border-radius:40px;
+padding:40px;
 position:relative;
 border:1px solid rgba(255,255,255,0.08);
-box-shadow:0 30px 80px rgba(0,0,0,0.5);
-animation:popupUp 0.4s ease;
+box-shadow:
+0 30px 90px rgba(0,0,0,0.6),
+0 0 100px rgba(245,185,66,0.08);
+animation:popupUp 0.5s ease;
+overflow-x:hidden;
 }
 
-@keyframes popupUp{
-
-from{
-transform:translateY(40px) scale(0.95);
-opacity:0;
+.popup-glow{
+position:absolute;
+width:500px;
+height:500px;
+background:radial-gradient(circle,#f5b94230,transparent 70%);
+top:-250px;
+right:-200px;
+pointer-events:none;
 }
 
-to{
-transform:translateY(0) scale(1);
-opacity:1;
+.premium-header{
+text-align:center;
+margin-bottom:40px;
+position:relative;
+z-index:2;
 }
 
+.header-badge{
+display:inline-flex;
+align-items:center;
+gap:10px;
+padding:14px 24px;
+border-radius:50px;
+background:rgba(245,185,66,0.12);
+border:1px solid rgba(245,185,66,0.25);
+color:#f5b942;
+font-size:14px;
+font-weight:700;
+margin-bottom:22px;
+}
+
+.premium-header h2{
+font-size:44px;
+font-weight:800;
+margin-bottom:12px;
+}
+
+.premium-header p{
+color:#9eadc4;
+font-size:17px;
+}
+
+.result-top{
+display:grid;
+grid-template-columns:320px 1fr;
+gap:35px;
+align-items:center;
+margin-bottom:35px;
+}
+
+.score-wrapper{
+display:flex;
+flex-direction:column;
+align-items:center;
+}
+
+.score-ring{
+position:relative;
+width:230px;
+height:230px;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.score-ring svg{
+transform:rotate(-90deg);
+}
+
+.score-content{
+position:absolute;
+text-align:center;
+}
+
+.score-content h1{
+font-size:56px;
+color:#fff;
+font-weight:800;
+margin-bottom:5px;
+}
+
+.score-content span{
+color:#bfc9da;
+font-size:15px;
+}
+
+.score-tag{
+margin-top:20px;
+padding:12px 24px;
+background:linear-gradient(135deg,#f5b942,#ffe29f);
+color:#000;
+font-weight:700;
+border-radius:50px;
+}
+
+.result-content-box{
+background:rgba(255,255,255,0.03);
+border:1px solid rgba(255,255,255,0.06);
+padding:35px;
+border-radius:30px;
+}
+
+.result-alert{
+display:flex;
+gap:20px;
+align-items:flex-start;
+margin-bottom:30px;
+}
+
+.alert-icon{
+min-width:70px;
+height:70px;
+border-radius:24px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:28px;
+background:linear-gradient(135deg,#f5b942,#ffe29f);
+color:#000;
+}
+
+.result-alert h2{
+font-size:36px;
+margin-bottom:12px;
+}
+
+.result-alert p{
+line-height:1.9;
+color:#c8d2e3;
+font-size:16px;
+}
+
+.mini-stats{
+display:grid;
+grid-template-columns:1fr 1fr 1fr;
+gap:18px;
+}
+
+.mini-card{
+background:#111d33;
+padding:24px;
+border-radius:24px;
+border:1px solid rgba(255,255,255,0.06);
+}
+
+.mini-card h3{
+font-size:14px;
+color:#9eabc2;
+margin-bottom:10px;
+}
+
+.mini-card h2{
+font-size:34px;
+color:#f5b942;
+}
+
+.progress-section{
+margin-top:10px;
+margin-bottom:35px;
+}
+
+.progress-row{
+margin-bottom:26px;
+}
+
+.progress-title{
+display:flex;
+justify-content:space-between;
+margin-bottom:12px;
+}
+
+.progress-title h4{
+font-size:15px;
+}
+
+.progress-title span{
+font-size:15px;
+font-weight:700;
+color:#f5b942;
+}
+
+.progress{
+height:18px;
+background:#1a2944;
+border-radius:50px;
+overflow:hidden;
+}
+
+.progress span{
+display:block;
+height:100%;
+width:0%;
+background:linear-gradient(90deg,#f5b942,#ffe29f);
+border-radius:50px;
+transition:1.2s ease;
+}
+
+.red-progress span{
+background:linear-gradient(90deg,#ff5f6d,#ff9966);
+}
+
+.green-progress span{
+background:linear-gradient(90deg,#00c853,#69f0ae);
+}
+
+.analysis-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:22px;
+margin-bottom:35px;
+}
+
+.analysis-card{
+padding:35px;
+border-radius:32px;
+position:relative;
+overflow:hidden;
+}
+
+.positive-card{
+background:linear-gradient(135deg,#0f2430,#132b38);
+border:1px solid rgba(0,255,170,0.08);
+}
+
+.risk-card{
+background:linear-gradient(135deg,#2a1620,#311924);
+border:1px solid rgba(255,0,90,0.08);
+}
+
+.analysis-top{
+display:flex;
+align-items:center;
+gap:16px;
+margin-bottom:25px;
+}
+
+.analysis-icon{
+width:60px;
+height:60px;
+border-radius:20px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:24px;
+}
+
+.positive-icon{
+background:#00c85322;
+color:#69f0ae;
+}
+
+.risk-icon{
+background:#ff174422;
+color:#ff8a80;
+}
+
+.analysis-card h3{
+font-size:28px;
+}
+
+.analysis-card ul{
+list-style:none;
+}
+
+.analysis-card li{
+display:flex;
+gap:12px;
+align-items:flex-start;
+margin-bottom:18px;
+line-height:1.8;
+color:#d5dceb;
+}
+
+.analysis-card li i{
+margin-top:6px;
+}
+
+.locked-report{
+position:relative;
+border-radius:35px;
+overflow:hidden;
+background:#0d1728;
+border:1px solid rgba(255,255,255,0.06);
+}
+
+.report-bg{
+position:absolute;
+inset:0;
+background:
+radial-gradient(circle at top right,#f5b94220,transparent 40%);
+}
+
+.report-content{
+padding:45px;
+filter:blur(7px);
+user-select:none;
+}
+
+.report-header h2{
+font-size:36px;
+margin-bottom:12px;
+}
+
+.report-header p{
+color:#a7b3c8;
+margin-bottom:35px;
+}
+
+.report-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:18px;
+}
+
+.report-item{
+display:flex;
+align-items:center;
+gap:16px;
+padding:22px;
+background:#13213a;
+border-radius:22px;
+font-size:15px;
+}
+
+.report-item i{
+color:#f5b942;
+font-size:20px;
+}
+
+.report-overlay{
+position:absolute;
+inset:0;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:25px;
+background:rgba(0,0,0,0.5);
+backdrop-filter:blur(3px);
+}
+
+.overlay-card{
+width:100%;
+max-width:520px;
+background:linear-gradient(135deg,#101b31,#0c1424);
+padding:40px;
+text-align:center;
+border-radius:35px;
+border:1px solid rgba(255,255,255,0.08);
+box-shadow:0 25px 60px rgba(0,0,0,0.45);
+}
+
+.lock-animation{
+margin-bottom:20px;
+}
+
+.lock-circle{
+width:95px;
+height:95px;
+border-radius:50%;
+margin:auto;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:36px;
+background:linear-gradient(135deg,#f5b942,#ffe29f);
+color:#000;
+box-shadow:0 15px 35px rgba(245,185,66,0.3);
+}
+
+.overlay-card h3{
+font-size:38px;
+margin-bottom:12px;
+}
+
+.overlay-card p{
+line-height:1.9;
+color:#c8d2e3;
+margin-bottom:28px;
+}
+
+.input-group{
+position:relative;
+margin-bottom:18px;
+}
+
+.input-icon{
+position:absolute;
+left:18px;
+top:50%;
+transform:translateY(-50%);
+color:#f5b942;
+font-size:18px;
+}
+
+.input-group input{
+width:100%;
+padding:20px 20px 20px 55px;
+background:#121f36;
+border:1px solid rgba(255,255,255,0.08);
+border-radius:20px;
+color:#fff;
+font-size:15px;
+outline:none;
+}
+
+.input-group input:focus{
+border-color:#f5b942;
+box-shadow:0 0 0 4px rgba(245,185,66,0.12);
+}
+
+.whatsapp-btn{
+width:100%;
+padding:20px;
+border:none;
+border-radius:22px;
+background:linear-gradient(135deg,#25D366,#1ebe5b);
+color:#fff;
+font-size:16px;
+font-weight:800;
+cursor:pointer;
+transition:0.3s;
+margin-top:5px;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:12px;
+}
+
+.whatsapp-btn:hover{
+transform:translateY(-4px);
+box-shadow:0 18px 35px rgba(37,211,102,0.25);
+}
+
+.secure-line{
+margin-top:18px;
+color:#9eadc4;
+font-size:14px;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:10px;
 }
 
 .close-popup{
 position:absolute;
-top:20px;
-right:20px;
-width:50px;
-height:50px;
+top:22px;
+right:22px;
+width:55px;
+height:55px;
 border-radius:50%;
-background:#101a2d;
+background:#121f36;
 display:flex;
 align-items:center;
 justify-content:center;
 font-size:22px;
 cursor:pointer;
 transition:0.3s;
+z-index:10;
 border:1px solid rgba(255,255,255,0.08);
 }
 
@@ -476,6 +896,41 @@ background:#f5b942;
 border-radius:20px;
 }
 
+@media(max-width:900px){
+
+.result-top{
+grid-template-columns:1fr;
+}
+
+.analysis-grid{
+grid-template-columns:1fr;
+}
+
+.report-grid{
+grid-template-columns:1fr;
+}
+
+.mini-stats{
+grid-template-columns:1fr;
+}
+
+.premium-header h2{
+font-size:32px;
+}
+
+.result-alert h2{
+font-size:28px;
+}
+
+.overlay-card h3{
+font-size:30px;
+}
+
+.result-popup{
+padding:24px;
+}
+
+}
 /* =====================================
    PROGRESS
 ===================================== */
@@ -979,122 +1434,410 @@ CHECK BAIL PROBABILITY
 <!-- =====================================
      RESULT POPUP MODAL
 ===================================== -->
-
 <div class="result-modal" id="resultModal">
 
 <div class="result-popup">
+
+<!-- TOP GLOW -->
+<div class="popup-glow"></div>
+
+<!-- CLOSE BUTTON -->
 
 <div class="close-popup" onclick="closePopup()">
 <i class="fa-solid fa-xmark"></i>
 </div>
 
-<div class="result-top">
+<!-- HEADER -->
 
-<div class="score-ring">
-<div class="score-number" id="scoreNumber">0%</div>
+<div class="premium-header">
+
+<div class="header-badge">
+<i class="fa-solid fa-shield-halved"></i>
+ AI LEGAL ANALYSIS REPORT
 </div>
 
-<div class="result-content">
-<h2 id="resultTitle">High Bail Probability</h2>
+<h2>
+Your Bail Probability Analysis
+</h2>
+
+<p>
+Advanced AI-based advocate assessment generated successfully.
+</p>
+
+</div>
+
+<!-- RESULT TOP -->
+
+<div class="result-top">
+
+<!-- SCORE RING -->
+
+<div class="score-wrapper">
+
+<div class="score-ring">
+
+<svg width="230" height="230">
+
+<circle
+cx="115"
+cy="115"
+r="95"
+stroke="#1d2a44"
+stroke-width="14"
+fill="none"
+/>
+
+<circle
+id="progressCircle"
+cx="115"
+cy="115"
+r="95"
+stroke="url(#gradient)"
+stroke-width="14"
+fill="none"
+stroke-linecap="round"
+stroke-dasharray="596"
+stroke-dashoffset="596"
+/>
+
+<defs>
+<linearGradient id="gradient">
+<stop offset="0%" stop-color="#f5b942"/>
+<stop offset="100%" stop-color="#ffe9b0"/>
+</linearGradient>
+</defs>
+
+</svg>
+
+<div class="score-content">
+
+<h1 id="scoreNumber">0%</h1>
+
+<span>Bail Chance</span>
+
+</div>
+
+</div>
+
+<div class="score-tag" id="scoreTag">
+Strong Probability
+</div>
+
+</div>
+
+<!-- RESULT TEXT -->
+
+<div class="result-content-box">
+
+<div class="result-alert">
+
+<div class="alert-icon">
+<i class="fa-solid fa-scale-balanced"></i>
+</div>
+
+<div>
+
+<h2 id="resultTitle">
+High Bail Probability
+</h2>
 
 <p id="resultText">
 Your case currently shows strong legal grounds for bail approval.
 </p>
+
 </div>
 
 </div>
+
+<!-- QUICK STATS -->
+
+<div class="mini-stats">
+
+<div class="mini-card">
+
+<h3>Case Strength</h3>
+
+<h2 id="strengthText">
+92%
+</h2>
+
+</div>
+
+<div class="mini-card">
+
+<h3>Legal Risk</h3>
+
+<h2 id="riskText">
+18%
+</h2>
+
+</div>
+
+<div class="mini-card">
+
+<h3>Advocate Rating</h3>
+
+<h2 id="advocateText">
+A+
+</h2>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- PROGRESS SECTION -->
 
 <div class="progress-section">
 
 <div class="progress-row">
-<h4>Case Strength</h4>
-<div class="progress">
-<span id="strengthBar" style="width:0%"></span>
+
+<div class="progress-title">
+<h4>Case Strength Analysis</h4>
+<span id="strengthPercent">0%</span>
 </div>
+
+<div class="progress">
+<span id="strengthBar"></span>
+</div>
+
 </div>
 
 <div class="progress-row">
-<h4>Legal Risk</h4>
-<div class="progress">
-<span id="riskBar" style="width:0%"></span>
+
+<div class="progress-title">
+<h4>Risk Assessment</h4>
+<span id="riskPercent">0%</span>
 </div>
+
+<div class="progress red-progress">
+<span id="riskBar"></span>
+</div>
+
 </div>
 
 <div class="progress-row">
+
+<div class="progress-title">
 <h4>Advocate Recommendation</h4>
-<div class="progress">
-<span id="advocateBar" style="width:0%"></span>
+<span id="advocatePercent">0%</span>
 </div>
+
+<div class="progress green-progress">
+<span id="advocateBar"></span>
 </div>
 
 </div>
+
+</div>
+
+<!-- ANALYSIS CARDS -->
 
 <div class="analysis-grid">
 
-<div class="analysis-card">
+<div class="analysis-card positive-card">
+
+<div class="analysis-top">
+
+<div class="analysis-icon positive-icon">
+<i class="fa-solid fa-circle-check"></i>
+</div>
 
 <h3>Positive Factors</h3>
 
+</div>
+
 <ul>
-<li>No serious criminal history</li>
-<li>Strong anticipatory grounds</li>
-<li>Favorable legal position</li>
+
+<li>
+<i class="fa-solid fa-check"></i>
+No serious criminal history found
+</li>
+
+<li>
+<i class="fa-solid fa-check"></i>
+Strong anticipatory bail grounds
+</li>
+
+<li>
+<i class="fa-solid fa-check"></i>
+Favorable legal circumstances
+</li>
+
+<li>
+<i class="fa-solid fa-check"></i>
+Settlement possibilities available
+</li>
+
 </ul>
 
 </div>
 
-<div class="analysis-card">
+<div class="analysis-card risk-card">
+
+<div class="analysis-top">
+
+<div class="analysis-icon risk-icon">
+<i class="fa-solid fa-triangle-exclamation"></i>
+</div>
 
 <h3>Risk Factors</h3>
 
+</div>
+
 <ul>
-<li>Possible court objections</li>
-<li>Legal documentation required</li>
-<li>Police response may affect hearing</li>
+
+<li>
+<i class="fa-solid fa-circle"></i>
+Possible prosecution objections
+</li>
+
+<li>
+<i class="fa-solid fa-circle"></i>
+Legal documentation required
+</li>
+
+<li>
+<i class="fa-solid fa-circle"></i>
+Court hearing preparation needed
+</li>
+
+<li>
+<i class="fa-solid fa-circle"></i>
+Police response may impact hearing
+</li>
+
 </ul>
 
 </div>
 
 </div>
 
+<!-- PREMIUM REPORT -->
+
 <div class="locked-report">
+
+<div class="report-bg"></div>
 
 <div class="report-content">
 
-<h2 style="margin-bottom:20px;">
-Detailed Advocate Report
+<div class="report-header">
+
+<h2>
+<i class="fa-solid fa-file-shield"></i>
+ Detailed Advocate Strategy Report
 </h2>
 
-<p style="line-height:2;color:#d0d8e5;">
-
-• FIR Section-wise Bail Analysis<br>
-• Supreme Court Judgement References<br>
-• Sessions Court Strategy<br>
-• Anticipatory Bail Draft Guidance<br>
-• Legal Risk Assessment<br>
-• Immediate Next Legal Steps
-
+<p>
+Premium confidential legal assessment prepared by AI legal engine.
 </p>
 
 </div>
+
+<div class="report-grid">
+
+<div class="report-item">
+<i class="fa-solid fa-scale-balanced"></i>
+<span>Section Wise Bail Analysis</span>
+</div>
+
+<div class="report-item">
+<i class="fa-solid fa-book"></i>
+<span>Supreme Court Judgements</span>
+</div>
+
+<div class="report-item">
+<i class="fa-solid fa-gavel"></i>
+<span>Sessions Court Strategy</span>
+</div>
+
+<div class="report-item">
+<i class="fa-solid fa-file-signature"></i>
+<span>Anticipatory Bail Drafting</span>
+</div>
+
+<div class="report-item">
+<i class="fa-solid fa-user-shield"></i>
+<span>Legal Risk Assessment</span>
+</div>
+
+<div class="report-item">
+<i class="fa-solid fa-phone-volume"></i>
+<span>Immediate Legal Guidance</span>
+</div>
+
+</div>
+
+</div>
+
+<!-- OVERLAY -->
 
 <div class="report-overlay">
 
 <div class="overlay-card">
 
-<h3>Unlock Full Report</h3>
+<div class="lock-animation">
+
+<div class="lock-circle">
+<i class="fa-solid fa-lock"></i>
+</div>
+
+</div>
+
+<h3>
+Unlock Full Report
+</h3>
 
 <p>
-Get complete advocate assessment directly on WhatsApp.
+Get complete advocate assessment & legal guidance instantly on WhatsApp.
 </p>
 
-<input type="text" id="leadName" placeholder="Enter your name">
+<div class="input-group">
 
-<input type="tel" id="leadPhone" placeholder="Enter your phone number">
+<div class="input-icon">
+<i class="fa-solid fa-user"></i>
+</div>
+
+<input
+type="text"
+id="leadName"
+placeholder="Enter your full name"
+/>
+
+</div>
+
+<div class="input-group">
+
+<div class="input-icon">
+<i class="fa-solid fa-phone"></i>
+</div>
+
+<input
+type="tel"
+id="leadPhone"
+placeholder="Enter your phone number"
+/>
+
+</div>
 
 <button class="whatsapp-btn" onclick="sendWhatsApp()">
-GET FULL REPORT
+
+<i class="fa-brands fa-whatsapp"></i>
+
+GET FULL REPORT ON WHATSAPP
+
 </button>
+
+<div class="secure-line">
+
+<i class="fa-solid fa-shield-halved"></i>
+
+100% Secure & Confidential
+
+</div>
 
 </div>
 
