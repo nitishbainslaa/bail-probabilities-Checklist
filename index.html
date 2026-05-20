@@ -3,11 +3,13 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
 <title>AI Bail Probability Checker</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
 <style>
 
 *{
@@ -17,11 +19,19 @@ box-sizing:border-box;
 font-family:'Poppins',sans-serif;
 }
 
+html{
+scroll-behavior:smooth;
+}
+
 body{
 background:#050816;
 color:#fff;
 overflow-x:hidden;
 }
+
+/* =====================================
+   BACKGROUND EFFECTS
+===================================== */
 
 body::before{
 content:'';
@@ -45,17 +55,24 @@ left:-250px;
 z-index:-1;
 }
 
+/* =====================================
+   CONTAINER
+===================================== */
+
 .container{
 max-width:1400px;
 margin:auto;
-padding:30px 20px 80px;
+padding:10px 20px 80px;
 }
+
+/* =====================================
+   NAVBAR
+===================================== */
 
 .navbar{
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:20px 0;
 margin-bottom:40px;
 }
 
@@ -68,28 +85,38 @@ align-items:center;
 width:620px;
 height:auto;
 object-fit:contain;
-border-radius: 10px;
-}
-
-.logo span{
-color:#f5b942;
+border-radius:12px;
+display:block;
 }
 
 .nav-btn{
-padding:14px 26px;
+padding:14px 28px;
 border-radius:50px;
 background:linear-gradient(135deg,#f5b942,#ffd978);
 color:#000;
 font-weight:700;
 text-decoration:none;
 box-shadow:0 10px 25px rgba(245,185,66,0.25);
+transition:0.3s;
 }
+
+.nav-btn:hover{
+transform:translateY(-3px);
+}
+
+/* =====================================
+   HERO SECTION
+===================================== */
 
 .hero{
 display:grid;
 grid-template-columns:1fr 560px;
 gap:60px;
-align-items:center;
+align-items:start;
+}
+
+.hero-left{
+margin-top:-15px;
 }
 
 .hero-left h1{
@@ -109,15 +136,81 @@ background:linear-gradient(135deg,#f5b942,#ffe6a7);
 font-size:18px;
 line-height:1.9;
 color:#b9c2d0;
-margin-bottom:40px;
-max-width:700px;
+margin-bottom:30px;
+max-width:720px;
 }
+
+/* =====================================
+   FEATURE BOXES
+===================================== */
+
+.hero-features{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:18px;
+margin-bottom:35px;
+}
+
+.feature-box{
+background:rgba(255,255,255,0.04);
+border:1px solid rgba(255,255,255,0.06);
+padding:22px;
+border-radius:24px;
+backdrop-filter:blur(10px);
+transition:0.3s;
+}
+
+.feature-box:hover{
+transform:translateY(-5px);
+border-color:#f5b942;
+}
+
+.feature-box i{
+font-size:28px;
+color:#f5b942;
+margin-bottom:14px;
+}
+
+.feature-box h3{
+font-size:18px;
+margin-bottom:10px;
+}
+
+.feature-box p{
+font-size:14px;
+line-height:1.8;
+color:#b9c2d0;
+margin:0;
+}
+
+/* =====================================
+   TRUST BADGES
+===================================== */
+
+.trust-line{
+display:flex;
+flex-wrap:wrap;
+gap:15px;
+margin-bottom:35px;
+}
+
+.trust-line span{
+padding:14px 20px;
+background:rgba(255,255,255,0.04);
+border:1px solid rgba(255,255,255,0.06);
+border-radius:50px;
+font-size:14px;
+}
+
+/* =====================================
+   BADGES
+===================================== */
 
 .badges{
 display:flex;
 flex-wrap:wrap;
 gap:15px;
-margin-bottom:40px;
+margin-bottom:35px;
 }
 
 .badges span{
@@ -128,6 +221,10 @@ border-radius:50px;
 backdrop-filter:blur(10px);
 font-size:14px;
 }
+
+/* =====================================
+   STATS
+===================================== */
 
 .stats{
 display:flex;
@@ -142,6 +239,11 @@ border-radius:28px;
 border:1px solid rgba(255,255,255,0.06);
 min-width:180px;
 backdrop-filter:blur(12px);
+transition:0.3s;
+}
+
+.stat-card:hover{
+transform:translateY(-5px);
 }
 
 .stat-card h2{
@@ -154,6 +256,10 @@ margin-bottom:8px;
 color:#ccd4e1;
 font-size:14px;
 }
+
+/* =====================================
+   MAIN CARD
+===================================== */
 
 .main-card{
 background:rgba(14,22,40,0.92);
@@ -280,6 +386,10 @@ box-shadow:0 15px 30px rgba(245,185,66,0.18);
 transform:translateY(-4px);
 }
 
+/* =====================================
+   RESULT BOX
+===================================== */
+
 .result-box{
 display:none;
 margin-top:35px;
@@ -290,6 +400,7 @@ animation:fadeUp 0.6s ease;
 }
 
 @keyframes fadeUp{
+
 from{
 opacity:0;
 transform:translateY(25px);
@@ -299,6 +410,7 @@ to{
 opacity:1;
 transform:translateY(0);
 }
+
 }
 
 .result-top{
@@ -349,6 +461,10 @@ color:#c2cbda;
 max-width:650px;
 }
 
+/* =====================================
+   PROGRESS
+===================================== */
+
 .progress-section{
 margin-top:30px;
 }
@@ -376,6 +492,10 @@ background:linear-gradient(90deg,#f5b942,#ffe29f);
 border-radius:50px;
 transition:1s;
 }
+
+/* =====================================
+   ANALYSIS
+===================================== */
 
 .analysis-grid{
 display:grid;
@@ -405,6 +525,10 @@ padding-left:18px;
 line-height:2;
 color:#d5dceb;
 }
+
+/* =====================================
+   LOCKED REPORT
+===================================== */
 
 .locked-report{
 margin-top:35px;
@@ -468,6 +592,10 @@ font-weight:700;
 cursor:pointer;
 }
 
+/* =====================================
+   FLOATING BUTTON
+===================================== */
+
 .floating-btn{
 position:fixed;
 bottom:25px;
@@ -485,6 +613,10 @@ text-decoration:none;
 box-shadow:0 20px 40px rgba(0,0,0,0.4);
 }
 
+/* =====================================
+   RESPONSIVE
+===================================== */
+
 @media(max-width:1150px){
 
 .hero{
@@ -495,12 +627,34 @@ grid-template-columns:1fr;
 font-size:58px;
 }
 
+.logo-img{
+width:420px;
+}
+
 }
 
 @media(max-width:768px){
 
+.navbar{
+flex-direction:column;
+align-items:flex-start;
+gap:20px;
+}
+
+.logo-img{
+width:280px;
+}
+
+.hero-left{
+margin-top:0;
+}
+
 .hero-left h1{
 font-size:42px;
+}
+
+.hero-features{
+grid-template-columns:1fr;
 }
 
 .form-grid,
@@ -536,9 +690,14 @@ height:130px;
 
 </style>
 </head>
+
 <body>
 
 <div class="container">
+
+<!-- =====================================
+     NAVBAR
+===================================== -->
 
 <div class="navbar">
 
@@ -552,6 +711,10 @@ Free Consultation
 
 </div>
 
+<!-- =====================================
+     HERO SECTION
+===================================== -->
+
 <div class="hero">
 
 <div class="hero-left">
@@ -564,12 +727,97 @@ Check Your <span>Bail Probability</span> Instantly
 Get AI-powered legal analysis based on FIR details, criminal history, investigation status and court factors. Receive instant advocate guidance and improve your legal strategy.
 </p>
 
-<div class="badges">
-<span><i class="fa-solid fa-shield"></i> 100% Confidential</span>
-<span><i class="fa-solid fa-bolt"></i> Instant Analysis</span>
-<span><i class="fa-brands fa-whatsapp"></i> WhatsApp Report</span>
-<span><i class="fa-solid fa-scale-balanced"></i> Advocate Support</span>
+<!-- FEATURE BOXES -->
+
+<div class="hero-features">
+
+<div class="feature-box">
+<i class="fa-solid fa-gavel"></i>
+<h3>Instant Legal Analysis</h3>
+<p>
+Advanced AI-based legal engine evaluates FIR status, chargesheet, criminal history and court factors instantly.
+</p>
 </div>
+
+<div class="feature-box">
+<i class="fa-solid fa-scale-balanced"></i>
+<h3>Advocate Guided Strategy</h3>
+<p>
+Get legal recommendations and probable court strategy prepared according to your case situation.
+</p>
+</div>
+
+<div class="feature-box">
+<i class="fa-brands fa-whatsapp"></i>
+<h3>WhatsApp Case Report</h3>
+<p>
+Receive complete legal assessment and advocate support directly on WhatsApp within minutes.
+</p>
+</div>
+
+<div class="feature-box">
+<i class="fa-solid fa-user-shield"></i>
+<h3>100% Confidential</h3>
+<p>
+Your case information remains completely private and protected with secure handling.
+</p>
+</div>
+
+</div>
+
+<!-- TRUST LINE -->
+
+<div class="trust-line">
+
+<span>
+<i class="fa-solid fa-circle-check"></i>
+ Trusted By 10,000+ Users
+</span>
+
+<span>
+<i class="fa-solid fa-clock"></i>
+ 24x7 Legal Support
+</span>
+
+<span>
+<i class="fa-solid fa-shield-halved"></i>
+ Secure & Confidential
+</span>
+
+<span>
+<i class="fa-solid fa-star"></i>
+ Top Rated Advocate Team
+</span>
+
+</div>
+
+<!-- BADGES -->
+
+<div class="badges">
+
+<span>
+<i class="fa-solid fa-shield"></i>
+ 100% Confidential
+</span>
+
+<span>
+<i class="fa-solid fa-bolt"></i>
+ Instant Analysis
+</span>
+
+<span>
+<i class="fa-brands fa-whatsapp"></i>
+ WhatsApp Report
+</span>
+
+<span>
+<i class="fa-solid fa-scale-balanced"></i>
+ Advocate Support
+</span>
+
+</div>
+
+<!-- STATS -->
 
 <div class="stats">
 
@@ -592,9 +840,14 @@ Get AI-powered legal analysis based on FIR details, criminal history, investigat
 
 </div>
 
+<!-- RIGHT SIDE FORM -->
+
 <div class="main-card">
 
-<h2 class="form-title">Free Bail Analysis</h2>
+<h2 class="form-title">
+Free Bail Analysis
+</h2>
+
 <p class="form-subtitle">
 Fill in your legal details below to get your AI bail probability score.
 </p>
