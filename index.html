@@ -388,78 +388,92 @@ transform:translateY(-4px);
 }
 
 /* =====================================
-   RESULT BOX
+   RESULT MODAL POPUP
 ===================================== */
 
-.result-box{
+.result-modal{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.7);
+backdrop-filter:blur(8px);
 display:none;
-margin-top:35px;
-background:#09111f;
-border-radius:35px;
-padding:35px;
-animation:fadeUp 0.6s ease;
+align-items:center;
+justify-content:center;
+padding:20px;
+z-index:99999;
+animation:fadeIn 0.4s ease;
 }
 
-@keyframes fadeUp{
+@keyframes fadeIn{
 
 from{
 opacity:0;
-transform:translateY(25px);
 }
 
 to{
 opacity:1;
-transform:translateY(0);
 }
 
 }
 
-.result-top{
-display:flex;
-justify-content:space-between;
-align-items:center;
-flex-wrap:wrap;
-gap:30px;
-margin-bottom:35px;
+.result-popup{
+width:100%;
+max-width:1100px;
+max-height:90vh;
+overflow-y:auto;
+background:#09111f;
+border-radius:35px;
+padding:35px;
+position:relative;
+border:1px solid rgba(255,255,255,0.08);
+box-shadow:0 30px 80px rgba(0,0,0,0.5);
+animation:popupUp 0.4s ease;
 }
 
-.score-ring{
-width:200px;
-height:200px;
+@keyframes popupUp{
+
+from{
+transform:translateY(40px) scale(0.95);
+opacity:0;
+}
+
+to{
+transform:translateY(0) scale(1);
+opacity:1;
+}
+
+}
+
+.close-popup{
+position:absolute;
+top:20px;
+right:20px;
+width:50px;
+height:50px;
 border-radius:50%;
-background:conic-gradient(#f5b942 0deg,#f5b942 300deg,#18263e 300deg);
+background:#101a2d;
 display:flex;
 align-items:center;
 justify-content:center;
-position:relative;
-box-shadow:0 0 40px rgba(245,185,66,0.2);
+font-size:22px;
+cursor:pointer;
+transition:0.3s;
+border:1px solid rgba(255,255,255,0.08);
 }
 
-.score-ring::before{
-content:'';
-position:absolute;
-width:150px;
-height:150px;
-background:#07101d;
-border-radius:50%;
+.close-popup:hover{
+background:#f5b942;
+color:#000;
+transform:rotate(90deg);
 }
 
-.score-number{
-position:relative;
-font-size:44px;
-font-weight:800;
-color:#f5b942;
+.result-popup::-webkit-scrollbar{
+width:6px;
 }
 
-.result-content h2{
-font-size:42px;
-margin-bottom:12px;
-}
-
-.result-content p{
-line-height:1.9;
-color:#c2cbda;
-max-width:650px;
+.result-popup::-webkit-scrollbar-thumb{
+background:#f5b942;
+border-radius:20px;
 }
 
 /* =====================================
@@ -962,7 +976,17 @@ Already Arrested
 CHECK BAIL PROBABILITY
 </button>
 
-<div class="result-box" id="resultBox">
+<!-- =====================================
+     RESULT POPUP MODAL
+===================================== -->
+
+<div class="result-modal" id="resultModal">
+
+<div class="result-popup">
+
+<div class="close-popup" onclick="closePopup()">
+<i class="fa-solid fa-xmark"></i>
+</div>
 
 <div class="result-top">
 
@@ -972,6 +996,7 @@ CHECK BAIL PROBABILITY
 
 <div class="result-content">
 <h2 id="resultTitle">High Bail Probability</h2>
+
 <p id="resultText">
 Your case currently shows strong legal grounds for bail approval.
 </p>
@@ -1007,21 +1032,27 @@ Your case currently shows strong legal grounds for bail approval.
 <div class="analysis-grid">
 
 <div class="analysis-card">
+
 <h3>Positive Factors</h3>
-<ul id="positiveFactors">
+
+<ul>
 <li>No serious criminal history</li>
 <li>Strong anticipatory grounds</li>
 <li>Favorable legal position</li>
 </ul>
+
 </div>
 
 <div class="analysis-card">
+
 <h3>Risk Factors</h3>
-<ul id="riskFactors">
+
+<ul>
 <li>Possible court objections</li>
 <li>Legal documentation required</li>
 <li>Police response may affect hearing</li>
 </ul>
+
 </div>
 
 </div>
@@ -1029,15 +1060,22 @@ Your case currently shows strong legal grounds for bail approval.
 <div class="locked-report">
 
 <div class="report-content">
-<h2 style="margin-bottom:20px;">Detailed Advocate Report</h2>
+
+<h2 style="margin-bottom:20px;">
+Detailed Advocate Report
+</h2>
+
 <p style="line-height:2;color:#d0d8e5;">
+
 • FIR Section-wise Bail Analysis<br>
 • Supreme Court Judgement References<br>
 • Sessions Court Strategy<br>
 • Anticipatory Bail Draft Guidance<br>
 • Legal Risk Assessment<br>
 • Immediate Next Legal Steps
+
 </p>
+
 </div>
 
 <div class="report-overlay">
@@ -1051,6 +1089,7 @@ Get complete advocate assessment directly on WhatsApp.
 </p>
 
 <input type="text" id="leadName" placeholder="Enter your name">
+
 <input type="tel" id="leadPhone" placeholder="Enter your phone number">
 
 <button class="whatsapp-btn" onclick="sendWhatsApp()">
@@ -1067,9 +1106,6 @@ GET FULL REPORT
 
 </div>
 
-</div>
-
-</div>
 
 <a href="#" class="floating-btn">
 <i class="fa-brands fa-whatsapp"></i>
