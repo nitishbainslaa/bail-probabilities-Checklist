@@ -1297,8 +1297,8 @@ text =
    SHOW RESULT
 ===================================== */
 
-document.getElementById('resultBox').style.display =
-'block';
+document.getElementById('resultModal').style.display =
+'flex';
 
 document.getElementById('resultTitle').innerHTML =
 title;
@@ -1404,18 +1404,17 @@ console.log('ERROR:', error);
 
 });
 
+
 /* =====================================
-   AUTO SCROLL
+   CLOSE POPUP
 ===================================== */
 
-window.scrollTo({
+function closePopup(){
 
-top:
-document.getElementById('resultBox').offsetTop - 50,
+document.getElementById('resultModal').style.display =
+'none';
 
-behavior:'smooth'
-
-});
+}
 
 }
 
