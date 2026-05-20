@@ -810,20 +810,17 @@ GET FULL REPORT
 <script>
 
 /* =====================================
-   EMAILJS INITIALIZE
-===================================== */
-
-(function(){
-
-emailjs.init("https://script.google.com/macros/s/AKfycbxucWUr-HobsNVA7A5-pEiE19BdxLOoEJPszH-HMFiBWcdOJg-tM7bCn5OhTyc1Dyj1/exec");
-
-})();
-
-/* =====================================
    GLOBAL VARIABLES
 ===================================== */
 
 let arrestValue = 20;
+
+/* =====================================
+   GOOGLE SCRIPT WEB APP URL
+===================================== */
+
+const SCRIPT_URL =
+'https://script.google.com/macros/s/PASTE_YOUR_WEBAPP_URL_HERE/exec';
 
 /* =====================================
    SELECT ARREST STATUS
@@ -1017,32 +1014,30 @@ document.getElementById('advocateBar').style.width =
 (score + 5) + '%';
 
 /* =====================================
-   SEND EMAIL TO YOUR MAIL
+   SEND DATA TO GOOGLE SHEETS / GMAIL
 ===================================== */
 
-emailjs.send(
+fetch(SCRIPT_URL, {
 
-'YOUR_SERVICE_ID',
+method: 'POST',
 
-'YOUR_TEMPLATE_ID',
-
-{
+body: JSON.stringify({
 
 name: fullName,
 
 phone: phone,
 
-case_type:
+caseType:
 caseType.options[
 caseType.selectedIndex
 ].text,
 
-criminal_record:
+record:
 record.options[
 record.selectedIndex
 ].text,
 
-fir_status:
+firStatus:
 firStatus.options[
 firStatus.selectedIndex
 ].text,
@@ -1067,12 +1062,12 @@ settlement.options[
 settlement.selectedIndex
 ].text,
 
-bail_rejected:
+bailRejected:
 bailRejected.options[
 bailRejected.selectedIndex
 ].text,
 
-arrest_status:
+arrestStatus:
 document.querySelector('.toggle-box.active').innerText,
 
 summary: summary,
@@ -1081,19 +1076,27 @@ score: score + '%',
 
 result: title
 
+}),
+
+headers: {
+
+'Content-Type': 'application/json'
+
 }
-
-)
-
-.then(function(response){
-
-console.log('SUCCESS!', response.status);
 
 })
 
-.catch(function(error){
+.then(response => response.json())
 
-console.log('FAILED...', error);
+.then(data => {
+
+console.log('SUCCESS:', data);
+
+})
+
+.catch(error => {
+
+console.log('ERROR:', error);
 
 });
 
@@ -1156,7 +1159,6 @@ window.open(
 }
 
 </script>
-
 </body>
 </html>
 
