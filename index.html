@@ -2060,6 +2060,25 @@ document.getElementById('riskBar').style.width =
 document.getElementById('advocateBar').style.width =
 (score + 5) + '%';
 
+   function animateCircle(score){
+
+let circle =
+document.getElementById('progressCircle');
+
+let radius = 95;
+
+let circumference =
+2 * Math.PI * radius;
+
+let offset =
+circumference -
+(score / 100) * circumference;
+
+circle.style.strokeDashoffset =
+offset;
+
+}
+
 /* =====================================
    SEND DATA TO GOOGLE SHEETS / GMAIL
 ===================================== */
