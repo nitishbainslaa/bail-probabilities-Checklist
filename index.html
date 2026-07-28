@@ -1134,6 +1134,20 @@ function sendWhatsApp() {
     // SEND DATA TO GOOGLE SCRIPT
     // ==========================
 
+
+   console.log({
+    name: name,
+    phone: phone,
+    score: score,
+    caseType: document.getElementById("caseType").value,
+    criminalRecord: document.getElementById("record").value,
+    firStatus: document.getElementById("firStatus").value,
+    chargesheet: document.getElementById("chargesheet").value,
+    arrestStatus: arrestValue,
+    summary: document.getElementById("summary").value,
+    result: document.getElementById("resultTitle").innerText
+});
+
 fetch("https://script.google.com/macros/s/AKfycbwTp5uRzBiAgGIqM7zBIda4CjU7OFsCXSYoOlMZGap2rCoWPP_sXqBG3rvbgY8HcMzWnw/exec", {
     method: "POST",
     body: JSON.stringify({
