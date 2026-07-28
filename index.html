@@ -1134,52 +1134,24 @@ function sendWhatsApp() {
     // SEND DATA TO GOOGLE SCRIPT
     // ==========================
 
-    fetch("https://script.google.com/macros/s/AKfycbwTp5uRzBiAgGIqM7zBIda4CjU7OFsCXSYoOlMZGap2rCoWPP_sXqBG3rvbgY8HcMzWnw/exec", {
-
-        method: "POST",
-
-        mode: "no-cors",
-
-        headers: {
-            "Content-Type": "text/plain;charset=utf-8"
-        },
-
-        body: JSON.stringify({
-
-            name: name,
-
-            phone: phone,
-
-            score: score,
-
-            caseType: document.getElementById("caseType").selectedOptions[0].text,
-
-            criminalRecord: document.getElementById("record").selectedOptions[0].text,
-
-            firStatus: document.getElementById("firStatus").selectedOptions[0].text,
-
-            chargesheet: document.getElementById("chargesheet").selectedOptions[0].text,
-
-            arrestStatus: arrestValue == 20
-                ? "Not Arrested"
-                : arrestValue == 12
-                ? "Interim Bail"
-                : "Already Arrested",
-
-            summary: document.getElementById("summary").value,
-
-            result: document.getElementById("resultTitle").innerText
-
-        })
-
+fetch("YOUR_WEBAPP_URL", {
+    method: "POST",
+    body: JSON.stringify({
+        name: name,
+        phone: phone,
+        score: score,
+        caseType: document.getElementById("caseType").value,
+        criminalRecord: document.getElementById("record").value,
+        firStatus: document.getElementById("firStatus").value,
+        chargesheet: document.getElementById("chargesheet").value,
+        arrestStatus: arrestValue,
+        summary: document.getElementById("summary").value,
+        result: document.getElementById("resultTitle").innerText
     })
-    .then(() => {
-        console.log("Lead sent successfully");
-    })
-    .catch(err => {
-        console.log("Mail Error:", err);
-    });
-
+})
+.then(r => r.text())
+.then(console.log)
+.catch(console.error);
     // ==========================
     // OPEN WHATSAPP
     // ==========================
