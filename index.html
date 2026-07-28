@@ -1103,76 +1103,24 @@ behavior:'smooth'
 
 }
 
-async function sendWhatsApp() {
+function sendWhatsApp() {
 
-    const name = document.getElementById("leadName").value.trim();
-    const phone = document.getElementById("leadPhone").value.trim();
+    let name = document.getElementById("leadName").value.trim();
+    let phone = document.getElementById("leadPhone").value.trim();
 
-    if (!name || !phone) {
+    if (name === "" || phone === "") {
         alert("Please enter name and phone number");
         return;
     }
 
-    const score = document.getElementById("scoreNumber").innerText;
-    const adminNumber = "919616166166";
+    let score = document.getElementById("scoreNumber")
+        ? document.getElementById("scoreNumber").innerText
+        : "Not Available";
 
-    const data = {
+    let adminNumber = "919616166166";
 
-        name: name,
-        phone: phone,
-        score: score,
-
-        caseType:
-            document.getElementById("caseType").selectedOptions[0].text,
-
-        criminalRecord:
-            document.getElementById("record").selectedOptions[0].text,
-
-        firStatus:
-            document.getElementById("firStatus").selectedOptions[0].text,
-
-        chargesheet:
-            document.getElementById("chargesheet").selectedOptions[0].text,
-
-        arrestStatus:
-            arrestValue == 20
-                ? "Not Arrested"
-                : arrestValue == 12
-                ? "Interim Bail"
-                : "Already Arrested",
-
-        summary:
-            document.getElementById("summary").value,
-
-        result:
-            document.getElementById("resultTitle").innerText
-
-    };
-
-    try {
-
-        const response = await fetch(
-            "https://script.google.com/macros/s/AKfycbxhBX6mhF9Db-CM4OAMwL8chkVSjfgBJTJ82Xirc5M8ax50RRTgoimCNy036LJzrppN/exec",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(data)
-            }
-        );
-
-        const text = await response.text();
-
-        console.log("Google Script Response:", text);
-
-    } catch (error) {
-
-        console.error("Google Script Error:", error);
-
-    }
-
-    const whatsappMessage = `🔥 New Bail Lead
+    let whatsappMessage =
+`🔥 New Bail Lead
 
 👤 Name: ${name}
 
@@ -1182,14 +1130,68 @@ async function sendWhatsApp() {
 
 📌 Source: AI Bail Probability Checker`;
 
-    window.open(
-        `https://wa.me/${adminNumber}?text=${encodeURIComponent(whatsappMessage)}`,
-        "_blank"
-    );
+    // ==========================
+    // SEND DATA TO GOOGLE SCRIPT
+    // ==========================
+
+    fetch("https://script.google.com/macros/s/AKfycbxhBX6mhF9Db-CM4OAMwL8chkVSjfgBJTJ82Xirc5M8ax50RRTgoimCNy036LJzrppN/exec", {
+
+        method: "POST",
+
+        mode: "no-cors",
+
+        headers: {
+            "Content-Type": "text/plain;charset=utf-8"
+        },
+
+        body: JSON.stringify({
+
+            name: name,
+
+            phone: phone,
+
+            score: score,
+
+            caseType: document.getElementById("caseType").selectedOptions[0].text,
+
+            criminalRecord: document.getElementById("record").selectedOptions[0].text,
+
+            firStatus: document.getElementById("firStatus").selectedOptions[0].text,
+
+            chargesheet: document.getElementById("chargesheet").selectedOptions[0].text,
+
+            arrestStatus: arrestValue == 20
+                ? "Not Arrested"
+                : arrestValue == 12
+                ? "Interim Bail"
+                : "Already Arrested",
+
+            summary: document.getElementById("summary").value,
+
+            result: document.getElementById("resultTitle").innerText
+
+        })
+
+    })
+    .then(() => {
+        console.log("Lead sent successfully");
+    })
+    .catch(err => {
+        console.log("Mail Error:", err);
+    });
+
+    // ==========================
+    // OPEN WHATSAPP
+    // ==========================
+
+    let whatsappURL =
+        `https://wa.me/${adminNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+
+    window.open(whatsappURL, "_blank");
 
 }
-}
 </script>
+
 
 </body>
 </html>
