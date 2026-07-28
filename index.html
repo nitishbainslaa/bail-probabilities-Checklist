@@ -1113,9 +1113,108 @@ function sendWhatsApp() {
         return;
     }
 
-    let score = document.getElementById("scoreNumber")
-        ? document.getElementById("scoreNumber").innerText
+    let scoreElement = document.getElementById("scoreNumber");
+
+    let score = scoreElement
+        ? scoreElement.innerText
         : "Not Available";
+
+
+    // SAFE SUMMARY
+    let summaryElement = document.getElementById("summary");
+
+    let summary = summaryElement
+        ? (summaryElement.value || summaryElement.innerText || "")
+        : "No summary available";
+
+
+    // RESULT
+    let resultElement = document.getElementById("resultTitle");
+
+    let result = resultElement
+        ? resultElement.innerText
+        : "Not Available";
+
+
+    // ==========================
+    // PREPARE DATA
+    // ==========================
+
+    let leadData = {
+
+        name: name,
+
+        phone: phone,
+
+        score: score,
+
+        caseType:
+            document.getElementById("caseType").value,
+
+        criminalRecord:
+            document.getElementById("record").value,
+
+        firStatus:
+            document.getElementById("firStatus").value,
+
+        chargesheet:
+            document.getElementById("chargesheet").value,
+
+        arrestStatus:
+            arrestValue,
+
+        summary:
+            summary,
+
+        result:
+            result
+
+    };
+
+
+    console.log("Sending Lead:", leadData);
+
+
+    // ==========================
+    // SEND EMAIL
+    // ==========================
+
+    fetch(
+        "https://script.google.com/macros/s/AKfycbwTp5uRzBiAgGIqM7zBIda4CjU7OFsCXSYoOlMZGap2rCoWPP_sXqBG3rvbgY8HcMzWnw/execc",
+        {
+
+            method: "POST",
+
+            mode: "no-cors",
+
+            headers: {
+
+                "Content-Type": "text/plain"
+
+            },
+
+            body: JSON.stringify(leadData)
+
+        }
+    )
+    .then(() => {
+
+        console.log("Lead sent to Google Script");
+
+    })
+    .catch(error => {
+
+        console.error(
+            "Google Script Error:",
+            error
+        );
+
+    });
+
+
+    // ==========================
+    // WHATSAPP
+    // ==========================
 
     let adminNumber = "919616166166";
 
@@ -1130,50 +1229,15 @@ function sendWhatsApp() {
 
 📌 Source: AI Bail Probability Checker`;
 
-    // ==========================
-    // SEND DATA TO GOOGLE SCRIPT
-    // ==========================
-
-
-   console.log({
-    name: name,
-    phone: phone,
-    score: score,
-    caseType: document.getElementById("caseType").value,
-    criminalRecord: document.getElementById("record").value,
-    firStatus: document.getElementById("firStatus").value,
-    chargesheet: document.getElementById("chargesheet").value,
-    arrestStatus: arrestValue,
-    summary: document.getElementById("summary").value,
-    result: document.getElementById("resultTitle").innerText
-});
-
-fetch("https://script.google.com/macros/s/AKfycbz24tlRItbDfi47QE9jiTFMH6dnrG9o7QDKxXQdxps8O8Cw55DZhkS184frYy4M3V-8/exec", {
-    method: "POST",
-    body: JSON.stringify({
-        name: name,
-        phone: phone,
-        score: score,
-        caseType: document.getElementById("caseType").value,
-        criminalRecord: document.getElementById("record").value,
-        firStatus: document.getElementById("firStatus").value,
-        chargesheet: document.getElementById("chargesheet").value,
-        arrestStatus: arrestValue,
-        summary: document.getElementById("summary").value,
-        result: document.getElementById("resultTitle").innerText
-    })
-})
-.then(r => r.text())
-.then(console.log)
-.catch(console.error);
-    // ==========================
-    // OPEN WHATSAPP
-    // ==========================
 
     let whatsappURL =
         `https://wa.me/${adminNumber}?text=${encodeURIComponent(whatsappMessage)}`;
 
-    window.open(whatsappURL, "_blank");
+
+    window.open(
+        whatsappURL,
+        "_blank"
+    );
 
 }
 </script>
