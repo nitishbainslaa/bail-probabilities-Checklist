@@ -1134,51 +1134,46 @@ function sendWhatsApp() {
     // SEND DATA TO GOOGLE SCRIPT
     // ==========================
 
-    fetch("https://script.google.com/macros/s/AKfycbycZGLmuxzF6ckfHjpQXR2gbj7_BbUo3RCXrbKoRVMpHs5lICdiKX75Ztr0ertP70HGUA/exec", {
+fetch("https://script.google.com/macros/s/AKfycbycZGLmuxzF6ckfHjpQXR2gbj7_BbUo3RCXrbKoRVMpHs5lICdiKX75Ztr0ertP70HGUA/exec", {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+        name: name,
+        phone: phone,
+        score: score,
 
-        method: "POST",
+        caseType:
+            document.getElementById("caseType").selectedOptions[0].text,
 
-        mode: "no-cors",
+        criminalRecord:
+            document.getElementById("record").selectedOptions[0].text,
 
-        headers: {
-            "Content-Type": "text/plain;charset=utf-8"
-        },
+        firStatus:
+            document.getElementById("firStatus").selectedOptions[0].text,
 
-        body: JSON.stringify({
+        chargesheet:
+            document.getElementById("chargesheet").selectedOptions[0].text,
 
-            name: name,
-
-            phone: phone,
-
-            score: score,
-
-            caseType: document.getElementById("caseType").selectedOptions[0].text,
-
-            criminalRecord: document.getElementById("record").selectedOptions[0].text,
-
-            firStatus: document.getElementById("firStatus").selectedOptions[0].text,
-
-            chargesheet: document.getElementById("chargesheet").selectedOptions[0].text,
-
-            arrestStatus: arrestValue == 20
+        arrestStatus:
+            arrestValue == 20
                 ? "Not Arrested"
                 : arrestValue == 12
                 ? "Interim Bail"
                 : "Already Arrested",
 
-            summary: document.getElementById("summary").value,
+        summary:
+            document.getElementById("summary").value,
 
-            result: document.getElementById("resultTitle").innerText
-
-        })
-
+        result:
+            document.getElementById("resultTitle").innerText
     })
-    .then(() => {
-        console.log("Lead sent successfully");
-    })
-    .catch(err => {
-        console.log("Mail Error:", err);
-    });
+})
+.then(() => {
+    alert("Lead submitted successfully!");
+})
+.catch(error => {
+    console.error("Google Script Error:", error);
+});
 
     // ==========================
     // OPEN WHATSAPP
