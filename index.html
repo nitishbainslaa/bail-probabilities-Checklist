@@ -995,144 +995,157 @@ circle.style.strokeDashoffset = offset;
 
 function calculateBail(){
 
-let fullName =
-document.getElementById('name').value.trim();
+    let fullName =
+        document.getElementById('name').value.trim();
 
-let phone =
-document.getElementById('phone').value.trim();
+    let phone =
+        document.getElementById('phone').value.trim();
 
-if(fullName == '' || phone == ''){
+    if(fullName === '' || phone === ''){
 
-alert('Please enter name and phone');
+        alert('Please enter name and phone');
 
-return;
-
-}
-
-let score = 0;
-
-score += parseInt(document.getElementById('caseType').value);
-
-score += parseInt(document.getElementById('record').value);
-
-score += parseInt(document.getElementById('firStatus').value);
-
-score += parseInt(document.getElementById('chargesheet').value);
-
-score += arrestValue;
-
-score = Math.floor(score / 2);
-
-if(score > 100){
-score = 100;
-}
-
-let title = '';
-let text = '';
-
-if(score >= 75){
-
-title = 'High Bail Probability';
-
-text =
-'Your case currently shows strong legal grounds for bail approval.';
-
-}
-else if(score >= 50){
-
-title = 'Moderate Bail Probability';
-
-text =
-'Your bail chances are moderate. Proper legal strategy is recommended.';
-
-}
-else{
-
-title = 'Low Bail Probability';
-
-text =
-'Immediate legal consultation is strongly advised.';
-
-}
-
-document.getElementById('resultSection').style.display =
-'block';
-
-document.getElementById('resultTitle').innerHTML =
-title;
-
-document.getElementById('resultText').innerHTML =
-text;
-
-animateScore(score);
-
-animateCircle(score);
-
-let risk = 100 - score;
-
-document.getElementById('strengthBar').style.width =
-score + '%';
-
-document.getElementById('riskBar').style.width =
-risk + '%';
-
-document.getElementById('strengthPercent').innerHTML =
-score + '%';
-
-document.getElementById('riskPercent').innerHTML =
-risk + '%';
-
-document.getElementById('strengthText').innerHTML =
-score + '%';
-
-document.getElementById('riskText').innerHTML =
-risk + '%';
-
-document.getElementById('advocateText').innerHTML =
-score >= 75 ? 'A+' :
-score >= 50 ? 'B+' : 'C';
-
-window.scrollTo({
-
-top:
-document.getElementById('resultSection').offsetTop - 50,
-
-behavior:'smooth'
-
-});
-
-}
-
-function sendWhatsApp() {
-
-    console.log("GET REPORT clicked");
-
-    let name = document.getElementById("leadName").value.trim();
-    let phone = document.getElementById("leadPhone").value.trim();
-
-    if (name === "" || phone === "") {
-        alert("Please enter name and phone number");
         return;
     }
 
-    let score = document.getElementById("scoreNumber").innerText;
+    // =========================
+    // CALCULATE BAIL SCORE
+    // =========================
 
-    let data = {
-        name: name,
+    let score = 0;
+
+    score += parseInt(
+        document.getElementById('caseType').value
+    );
+
+    score += parseInt(
+        document.getElementById('record').value
+    );
+
+    score += parseInt(
+        document.getElementById('firStatus').value
+    );
+
+    score += parseInt(
+        document.getElementById('chargesheet').value
+    );
+
+    score += arrestValue;
+
+    score = Math.floor(score / 2);
+
+    if(score > 100){
+        score = 100;
+    }
+
+
+    // =========================
+    // RESULT
+    // =========================
+
+    let title = '';
+    let text = '';
+
+    if(score >= 75){
+
+        title = 'High Bail Probability';
+
+        text =
+        'Your case currently shows strong legal grounds for bail approval.';
+
+    }
+    else if(score >= 50){
+
+        title = 'Moderate Bail Probability';
+
+        text =
+        'Your bail chances are moderate. Proper legal strategy is recommended.';
+
+    }
+    else{
+
+        title = 'Low Bail Probability';
+
+        text =
+        'Immediate legal consultation is strongly advised.';
+
+    }
+
+
+    // =========================
+    // SHOW RESULT
+    // =========================
+
+    document.getElementById('resultSection').style.display =
+        'block';
+
+    document.getElementById('resultTitle').innerHTML =
+        title;
+
+    document.getElementById('resultText').innerHTML =
+        text;
+
+    animateScore(score);
+
+    animateCircle(score);
+
+
+    // =========================
+    // STATS
+    // =========================
+
+    let risk = 100 - score;
+
+    document.getElementById('strengthBar').style.width =
+        score + '%';
+
+    document.getElementById('riskBar').style.width =
+        risk + '%';
+
+    document.getElementById('strengthPercent').innerHTML =
+        score + '%';
+
+    document.getElementById('riskPercent').innerHTML =
+        risk + '%';
+
+    document.getElementById('strengthText').innerHTML =
+        score + '%';
+
+    document.getElementById('riskText').innerHTML =
+        risk + '%';
+
+    document.getElementById('advocateText').innerHTML =
+        score >= 75 ? 'A+' :
+        score >= 50 ? 'B+' : 'C';
+
+
+    // =========================
+    // PREPARE LEAD DATA
+    // =========================
+
+    let leadData = {
+
+        name: fullName,
+
         phone: phone,
-        score: score,
+
+        score: score + "%",
 
         caseType:
-            document.getElementById("caseType").selectedOptions[0].text,
+            document.getElementById('caseType')
+            .selectedOptions[0].text,
 
         criminalRecord:
-            document.getElementById("record").selectedOptions[0].text,
+            document.getElementById('record')
+            .selectedOptions[0].text,
 
         firStatus:
-            document.getElementById("firStatus").selectedOptions[0].text,
+            document.getElementById('firStatus')
+            .selectedOptions[0].text,
 
         chargesheet:
-            document.getElementById("chargesheet").selectedOptions[0].text,
+            document.getElementById('chargesheet')
+            .selectedOptions[0].text,
 
         arrestStatus:
             arrestValue === 20
@@ -1142,36 +1155,58 @@ function sendWhatsApp() {
                 : "Already Arrested",
 
         summary:
-            document.getElementById("summary").value,
+            document.getElementById('summary').value,
 
-        result:
-            document.getElementById("resultTitle").innerText
+        result: title
+
     };
 
-    console.log("Sending data:", data);
+
+    // =========================
+    // SEND EMAIL VIA GOOGLE SCRIPT
+    // =========================
 
     fetch(
         "https://script.google.com/macros/s/AKfycbycZGLmuxzF6ckfHjpQXR2gbj7_BbUo3RCXrbKoRVMpHs5lICdiKX75Ztr0ertP70HGUA/exec",
         {
+
             method: "POST",
+
             mode: "no-cors",
-            body: JSON.stringify(data)
+
+            body: JSON.stringify(leadData)
+
         }
     )
-    .then(function () {
+    .then(function(){
 
-        console.log("POST request sent");
-
-        alert("Lead sent successfully!");
+        console.log("Bail lead sent successfully");
 
     })
-    .catch(function (error) {
+    .catch(function(error){
 
-        console.error("POST ERROR:", error);
-
-        alert("Error sending lead");
+        console.error(
+            "Lead sending error:",
+            error
+        );
 
     });
+
+
+    // =========================
+    // SCROLL TO RESULT
+    // =========================
+
+    window.scrollTo({
+
+        top:
+        document.getElementById('resultSection')
+        .offsetTop - 50,
+
+        behavior:'smooth'
+
+    });
+
 }
 </script>
 
