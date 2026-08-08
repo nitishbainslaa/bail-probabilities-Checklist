@@ -133,6 +133,7 @@ padding:20px;
 
 .nav-btn{
     padding:14px 24px;
+
     border-radius:50px;
 
     background:linear-gradient(
@@ -144,22 +145,30 @@ padding:20px;
     color:#000;
 
     font-weight:700;
+
     text-decoration:none;
 
     display:flex;
     align-items:center;
     justify-content:center;
+
     gap:10px;
 
     transition:0.3s;
 
-    box-shadow:0 10px 25px rgba(245,185,66,0.25);
+    box-shadow:
+        0 10px 25px
+        rgba(245,185,66,0.25);
 }
 
 .nav-btn:hover{
     transform:translateY(-3px);
 }
 
+
+/* =====================================
+   MOBILE NAVBAR
+===================================== */
 
 @media(max-width:768px){
 
@@ -176,7 +185,8 @@ padding:20px;
         padding:10px 18px;
     }
 
-    /* HOME */
+
+    /* HOME LEFT */
 
     .nav-left{
         position:absolute;
@@ -186,9 +196,14 @@ padding:20px;
     .home-btn{
         width:42px;
         height:42px;
+
+        border-radius:12px;
+
+        font-size:16px;
     }
 
-    /* LOGO */
+
+    /* LOGO CENTER */
 
     .nav-center{
         display:flex;
@@ -201,7 +216,8 @@ padding:20px;
         max-width:55vw;
     }
 
-    /* WHATSAPP */
+
+    /* WHATSAPP RIGHT */
 
     .nav-right{
         position:absolute;
@@ -209,6 +225,7 @@ padding:20px;
 
         display:flex;
         align-items:center;
+        justify-content:center;
     }
 
     .nav-btn{
@@ -219,74 +236,20 @@ padding:20px;
 
         border-radius:50%;
 
+        gap:0;
+
         display:flex;
         align-items:center;
         justify-content:center;
-
-        gap:0;
     }
 
     .nav-btn i{
         font-size:20px;
     }
 
-    .consultation-text{
+    .nav-btn .consultation-text{
         display:none;
     }
-
-}
-
-/* =====================================
-   MOBILE NAVBAR
-===================================== */
-
-@media(max-width:768px){
-
-    .top-navbar{
-        height:75px;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        position:sticky;
-        top:0;
-        padding:10px 18px;
-    }
-
-    .nav-left{
-        position:absolute;
-        left:18px;
-    }
-
-    .nav-center{
-        display:flex;
-        align-items:center;
-        justify-content:center;
-    }
-
-    .nav-logo{
-        width:170px;
-        max-width:55vw;
-    }
-
-    /* Desktop Consultation Hide */
-    .desktop-consultation{
-        display:none !important;
-    }
-
-    /* Mobile WhatsApp Show */
-    .mobile-whatsapp{
-        display:flex !important;
-    }
-
-    .nav-right{
-        position:absolute;
-        right:18px;
-
-        display:flex;
-        align-items:center;
-    }
-
-}
 
 }
 /* HERO */
@@ -687,10 +650,15 @@ grid-column:auto;
 
 <header class="top-navbar">
 
+
     <!-- LEFT : HOME -->
     <div class="nav-left">
 
-        <a href="https://www.aktiwari.in/" class="home-btn" aria-label="Home">
+        <a
+            href="https://www.aktiwari.in/"
+            class="home-btn"
+            aria-label="Home"
+        >
             <i class="fa-solid fa-house"></i>
         </a>
 
@@ -703,24 +671,30 @@ grid-column:auto;
         <img
             src="Screenshot_3-removebg-preview-removebg-preview.jpg"
             class="nav-logo"
-            alt="Company Logo"
+            alt="AK Tiwari & Associates"
         />
 
     </div>
 
 
+    <!-- RIGHT : WHATSAPP / CONSULTATION -->
     <div class="nav-right">
 
-    <a
-        href="https://wa.me/919616166166"
-        class="nav-btn"
-        aria-label="WhatsApp Consultation"
-    >
-        <i class="fa-brands fa-whatsapp"></i>
-        <span class="consultation-text">Consultation Now</span>
-    </a>
+        <a
+            href="https://wa.me/919616166166"
+            class="nav-btn"
+            aria-label="WhatsApp Consultation"
+        >
 
-</div>
+            <i class="fa-brands fa-whatsapp"></i>
+
+            <span class="consultation-text">
+                Consultation Now
+            </span>
+
+        </a>
+
+    </div>
 
 </header>
   
